@@ -16,11 +16,11 @@
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
 			</h3>
 		</div>
-		<h:form>
+		<h:form id="form">
 			<p:dataTable id="dataTable" var="produto" selection="#{produtoMB.selectedProdutos}" 
 				value="#{produtoMB.produtos}" paginator="true" rows="5"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
+				rowsPerPageTemplate="5,10,15" rowKey="#{produto.id}">
 				 <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 				<p:column>
 					<f:facet name="header">#</f:facet>
@@ -60,7 +60,7 @@
 					</h:outputText>
 				</p:column>
 				 <f:facet name="footer">
-           			 <p:commandButton process="checkboxDT" update=":form:multiCarDetail" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+           			 <p:commandButton process="dataTable" update=":form:dataTable" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
        				 <p:commandButton id="finalizar" value="#{msg['finalizar.compra']}"  
 	        			oncomplete="PF('confirmation').hide()" action="#{produtoMB.finalizarCompra}" />  	
        			 </f:facet>
