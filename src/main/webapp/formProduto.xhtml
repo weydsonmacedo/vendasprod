@@ -1,0 +1,97 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form styleClass="form-horizontal">
+		<fieldset>
+			<legend>
+				<h3>
+					<h:outputText value="#{msg['label.produto']}" />
+					<small> <h:outputText value="#{subtitle}" /></small>
+				</h3>
+			</legend>
+			<div class="control-group">
+				<label class="control-label"><h:outputText
+						value="#{msg['label.produto.nome']}" /></label>
+				<div class="controls">
+					<h:inputText value="#{produtoMB.produto.nome}"
+						label="#{msg['label.produto.nome']}" required="true"
+						styleClass="input-large">
+						<f:validateLength minimum="5" maximum="60" />
+					</h:inputText>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><h:outputText
+						value="#{msg['label.produto.descricao']}" /></label>
+				<div class="controls">
+					<h:inputText value="#{produtoMB.produto.descricao}"
+						label="#{msg['label.produto.descricao']}" required="true"
+						styleClass="input-large">
+						<f:validateLength minimum="5" maximum="100" />
+					</h:inputText>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><h:outputText
+						value="#{msg['label.produto.quantidade']}" /></label>
+				<div class="controls">
+					<h:inputText value="#{produtoMB.produto.quantidade}"
+						label="#{msg['label.produto.quantidade']}" required="true"
+						styleClass="input-small">
+						<f:convertNumber />
+						<f:validateLongRange minimum="1" />
+					</h:inputText>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label"><h:outputText
+						value="#{msg['label.produto.preco']}" /></label>
+				<div class="controls">
+					<h:inputText value="#{produtoMB.produto.preco}"
+						label="#{msg['label.produto.preco']}" required="true"
+						styleClass="input-small">
+						<f:convertNumber minFractionDigits="2" />
+						<f:validateDoubleRange minimum="1" />
+					</h:inputText>
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="control-group">
+			<div class="controls">
+				<p:commandButton value="#{msg['button.salvar']}"
+					action="#{produtoMB.salvar}" styleClass="btn btn-success" onclick="PF('dlg').show();" oncomplete="PF('dlg').hide();"
+					rendered="#{produtoMB.produto != null}" />
+				<p:button value="#{msg['button.cancelar']}"
+					outcome="listaProdutos" styleClass="btn" />
+				<p:commandButton value="#{msg['button.excluir']}"
+					onclick="PF('confirmation').show()"
+					rendered="#{produtoMB.produto.id != null}" immediate="true"
+					styleClass="btn btn-danger" />
+			</div>
+		</div>
+		
+		<p:dialog id="dialog" header="#{msg['dialog.emexecucao.titulo']}" widgetVar="dlg" dynamic="true" modal="true">  
+	    	<h:outputText value="#{msg['dialog.emexecucao.aguarde']}" />  
+		</p:dialog>
+		
+		<p:confirmDialog id="confirmDialog" message="#{msg['excluir.produto.confirma']}"
+			header="#{msg['excluir.produto']}" severity="alert" widgetVar="confirmation">  
+	        <p:commandButton id="confirm" value="#{msg['confirma.sim']}" update="messages" 
+	        	oncomplete="PF('confirmation').hide()" action="#{produtoMB.remover}" />  
+	        <p:commandButton id="decline" value="#{msg['confirma.nao']}" 
+	        	onclick="PF('confirmation').hide()" type="button" />
+	    </p:confirmDialog>
+	
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		
+
+		<h:inputHidden value="#{produtoMB.produto.id}" />
+	</h:form>
+</ui:fragment>

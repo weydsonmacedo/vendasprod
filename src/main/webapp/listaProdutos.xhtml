@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="pageTitle">
+		<h:outputText value="#{msg['page.title.lista.produto']}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<div style="border-bottom: 1px solid #E5E5E5;">
+			<h3>
+				<h:outputText value="#{msg['label.produtos']}" />
+				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
+			</h3>
+		</div>
+		<h:form>
+			<p:dataTable id="dataTable" var="produto" selection="#{produtoMB.selectedProdutos}" 
+				value="#{produtoMB.produtos}" paginator="true" rows="5"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				 <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+				<p:column>
+					<f:facet name="header">#</f:facet>
+					<h:outputText value="#{produto.id}" />
+				</p:column>
+	
+				<p:column sortBy="#{produto.nome}">
+					<f:facet name="header">
+						<h:outputText value="#{msg['label.produto.nome']}" />
+					</f:facet>
+					<h:link outcome="editarProduto" value="#{produto.nome}"
+						title="#{msg['label.editar']} #{produto.nome}">
+						<f:param name="id" value="#{produto.id}" />
+					</h:link>
+				</p:column>
+	
+				<p:column sortBy="#{produto.descricao}">
+					<f:facet name="header">
+						<h:outputText value="#{msg['label.produto.descricao']}" />
+					</f:facet>
+					<h:outputText value="#{produto.descricao}" />
+				</p:column>
+	
+				<p:column sortBy="#{produto.quantidade}">
+					<f:facet name="header">
+						<h:outputText value="#{msg['label.produto.quantidade']}" />
+					</f:facet>
+					<h:outputText value="#{produto.quantidade}" />
+				</p:column>
+	
+				<p:column sortBy="#{produto.preco}">
+					<f:facet name="header">
+						<h:outputText value="#{msg['label.produto.preco']}" />
+					</f:facet>
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber type="currency"  />
+					</h:outputText>
+				</p:column>
+				 <f:facet name="footer">
+           			 <p:commandButton process="checkboxDT" update=":form:multiCarDetail" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+       				 <p:commandButton id="finalizar" value="#{msg['finalizar.compra']}"  
+	        			oncomplete="PF('confirmation').hide()" action="#{produtoMB.finalizarCompra}" />  	
+       			 </f:facet>
+			</p:dataTable>
+		</h:form>
+		<h:messages />
+	</ui:define>
+</ui:composition>
+</html>
