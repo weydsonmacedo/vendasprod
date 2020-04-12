@@ -71,10 +71,6 @@
                          effect="fade" var="cli" style="width:300px" filter="true" filterMatchMode="startsWith">
             <f:selectItems value="#{pedidoMB.listClientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
  
-<!--             <p:column style="width:10%"> -->
-<!--                 <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{t.name}.png" alt="#{t.name}" styleClass="ui-theme" /> -->
-<!--             </p:column> -->
- 
             <p:column>
                <f:facet name="header">
                    <h:outputText value="#{msg['label.pedidos.cliente.nome']}"/>

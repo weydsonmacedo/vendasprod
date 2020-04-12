@@ -19,21 +19,21 @@
 <h:body>
 	<f:view contentType="text/html">
 		<div class="header">
-			<div class="container">
+			<div >
 				<ui:insert name="header">
 					<ui:include src="header.xhtml" />
 				</ui:insert>
 			</div>
 		</div>
 
-		<div class="container">
+		<div class="container" style="width:1280px;">
 			<div class="row-fluid show-grid">
-				<div class="well span2">
+				<div class="well span2" style="height:300px;">
 					<ui:insert name="sidebar">
 						<ui:include src="../menu.xhtml" />
 					</ui:insert>
 				</div>
-				<div class="span8">
+				<div class="span10">
 					<ui:insert name="content"></ui:insert>
 
 					<ui:insert name="footer">
