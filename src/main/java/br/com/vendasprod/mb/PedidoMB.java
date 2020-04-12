@@ -57,7 +57,6 @@ public class PedidoMB extends GenericMB implements Serializable {
 	private  List<QtdProduto> selectedExcluirProdutos;
 	private List<Cliente> listClientes;
 	private Cliente cliente;
-	private boolean qtdUltrapassada = true;
 	
 	@PostConstruct
 	public void init() {
@@ -71,6 +70,9 @@ public class PedidoMB extends GenericMB implements Serializable {
 		return this.qtdProdutoService.calcularPrecoTotal(this.listQtdProdutos);
 	}
 	public String salvar() {
+		if (!this.verificaQtd()) {
+			return"";
+		}
 		montarPedido();
 		try {
 			logger.info("salvando..." +service.getClass());
@@ -93,11 +95,13 @@ public class PedidoMB extends GenericMB implements Serializable {
 	}
 
 
-	public void verificaQtd() {
-		if(this.qtdProdutoService.verificaQtd(listQtdProdutos)) {
-			addMessage(getMessageFromI18N("msg.info.qtdproduto.excedido"),"teste");
-			this.qtdUltrapassada = true;
+	public boolean verificaQtd() {
+			Produto prod = this.qtdProdutoService.verificaProdutoQtdExcedido(listQtdProdutos);
+		if(prod!= null) {
+			addMessage(getMessageFromI18N("msg.warn.qtdproduto.excedido"), "Máximo de "+prod.getNome() +" disponíveis :"+ prod.getQuantidade());
+			return false;
 		}
+		return true;
 	}
 	public PedidoService getService() {
 		return service;
@@ -170,7 +174,7 @@ public class PedidoMB extends GenericMB implements Serializable {
 
 	public List<Pedido> getListPedidos() {
 		if (this.listPedidos == null) {
-			this.listPedidos = service.findAll();
+			this.listPedidos = service.findAllEager();
 		}
 		return this.listPedidos;
 	}
@@ -180,11 +184,4 @@ public class PedidoMB extends GenericMB implements Serializable {
 		this.listPedidos = listPedidos;
 	}
 
-	public boolean isQtdUltrapassada() {
-		return qtdUltrapassada;
-	}
-
-	public void setQtdUltrapassada(boolean qtdUltrapassada) {
-		this.qtdUltrapassada = qtdUltrapassada;
-	}
 }

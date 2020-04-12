@@ -17,6 +17,10 @@ import br.com.vendasprod.service.ClienteService;
 @FacesConverter(value = "clienteConverter", managed = true)
 public class ClienteConverter extends GenericMensage implements Converter<Object>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4625339156232642961L;
 	@Inject 
 	private ClienteService clienteService;
     

@@ -3,6 +3,7 @@ package br.com.vendasprod.service;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -57,7 +58,11 @@ public class QtdProdutoServiceEJB extends AbstractPersistence<QtdProduto, Long> 
 	}
 
 	@Override
-	public boolean verificaQtd(List<QtdProduto> listQtdProdutos) {
-		return listQtdProdutos.stream().anyMatch( q -> (q.getQtdProdutos() == null ? 0 : q.getQtdProdutos()) > q.getProduto().getQuantidade());
+	public Produto verificaProdutoQtdExcedido(List<QtdProduto> listQtdProdutos) {
+		Optional<QtdProduto> op = listQtdProdutos.stream().filter( q -> (q.getQtdProdutos() == null ? 0 : q.getQtdProdutos()) > q.getProduto().getQuantidade()).findFirst();
+		if(op.isPresent()) {			
+			return op.get().getProduto();
+		}
+		return null;
 	}
 }

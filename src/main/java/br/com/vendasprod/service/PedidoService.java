@@ -25,5 +25,6 @@ public interface PedidoService {
 	public Pedido find(Long id);
 	
 	public List<Pedido> findAll();
-
+	
+	public List<Pedido> findAllEager();
 }

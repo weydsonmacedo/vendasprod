@@ -2,11 +2,14 @@ package br.com.vendasprod.base;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
+import javax.inject.Named;
 
-public class GenericMensage {
+@Named
+public class GenericMensage implements Serializable{
 
 	/**
 	 * @param key

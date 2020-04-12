@@ -8,6 +8,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Fetch;
+import javax.persistence.criteria.Root;
 
 import br.com.vendasprod.entity.Pedido;
 import br.com.vendasprod.entity.QtdProduto;
@@ -51,5 +56,14 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 		return null;
 	}
 	
-	
+	@Override
+	public List<Pedido> findAllEager(){
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Pedido> q = cb.createQuery(Pedido.class);
+		Root<Pedido> c = q.from(Pedido.class);  
+		Fetch<Pedido,QtdProduto> p = c.fetch("qtdProdutos");
+		 q.select(c);
+		 TypedQuery<Pedido> typedQuery = em.createQuery(q);
+		  return typedQuery.getResultList();
+	}
 }

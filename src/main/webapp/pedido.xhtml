@@ -46,7 +46,7 @@
 						<h:outputText value="#{msg['label.produto.quantidade']}" />
 					</f:facet>
 					<h:inputText value="#{qtdProd.qtdProdutos}" >
-					    <p:ajax event="keyup" update="dataTable,:formGeral:buttons" listener="#{pedidoMB.verificaQtd}"/>
+					    <p:ajax event="keyup" update="dataTable,:formGeral:buttons,:formGeral:messages" listener="#{pedidoMB.verificaQtd}"/>
 					    <f:validateLongRange minimum="1" />
 					</h:inputText>
 				</p:column>
@@ -111,6 +111,7 @@
 		<p:dialog id="dialog" header="#{msg['dialog.emexecucao.titulo']}" widgetVar="dlg" dynamic="true" modal="true">  
 	    	<h:outputText value="#{msg['dialog.emexecucao.aguarde']}" />  
 		</p:dialog>
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		</h:form>
 		<h:messages />
 	</ui:define>

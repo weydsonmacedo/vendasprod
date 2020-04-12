@@ -69,6 +69,10 @@ public class Pedido implements AbstractEntity {
 	public void setQtdProdutos(List<QtdProduto> qtdProdutos) {
 		this.qtdProdutos = qtdProdutos;
 	}
+	
+	public Integer getSomatorioQtdProdutos() {
+		return this.qtdProdutos.stream().map( p -> p.getQtdProdutos()).reduce(0,Integer::sum);
+	}
 
 	@Override
 	public int hashCode() {
