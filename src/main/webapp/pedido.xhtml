@@ -16,7 +16,7 @@
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
 			</h3>
 		</div>
-		<h:form>
+		<h:form id="formGeral">
 			<p:dataTable id="dataTable" var="qtdProd" selection="#{pedidoMB.selectedExcluirProdutos}" 
 				value="#{pedidoMB.listQtdProdutos}" paginator="true" rows="5"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -32,10 +32,6 @@
 						<h:outputText value="#{msg['label.produto.nome']}" />
 					</f:facet>
 					<h:outputText value="#{qtdProd.produto.nome}" />
-<!-- 					<h:link outcome="editarProduto" value="#{produto.nome}" -->
-<!-- 						title="#{msg['label.editar']} #{produto.nome}"> -->
-<!-- 						<f:param name="id" value="#{produto.id}" /> -->
-<!-- 					</h:link> -->
 				</p:column>
 	
 				<p:column sortBy="#{qtdProd.produto.descricao}">
@@ -50,7 +46,8 @@
 						<h:outputText value="#{msg['label.produto.quantidade']}" />
 					</f:facet>
 					<h:inputText value="#{qtdProd.qtdProdutos}" >
-					    <p:ajax event="blur" update="total" />
+					    <p:ajax event="keyup" update="dataTable,:formGeral:buttons" listener="#{pedidoMB.verificaQtd}"/>
+					    <f:validateLongRange minimum="1" />
 					</h:inputText>
 				</p:column>
 	
@@ -62,14 +59,13 @@
 						<f:convertNumber type="currency"  />
 					</h:outputText>
 				</p:column>
-				 <f:facet  id="total" name="footer">
+				 <f:facet   name="footer">
 						 <h:outputText value="#{msg['label.pedidos.total']}"/>
-           			  	<h:outputText value="#{pedidoMB.calcularPrecoTotal}">
+           			  	<h:outputText id="total" value="#{pedidoMB.precoTotal}">
            			  			<f:convertNumber type="currency"  />
            			  	</h:outputText>	  	
        			 </f:facet>
 			</p:dataTable>
-			
 		<p:outputLabel for="@next" value="#{msg['label.pedidos.cliente']}" />
         <p:selectOneMenu id="advanced" value="#{pedidoMB.cliente}" converter="#{clienteConverter}" panelStyle="width:180px"
                          effect="fade" var="cli" style="width:300px" filter="true" filterMatchMode="startsWith">
@@ -97,9 +93,9 @@
                <h:outputText value="#{pedidoMB.listClientes.size()} Clientes" style="font-weight:bold;"/>
             </f:facet>
         </p:selectOneMenu>
-			<div class="control-group">
+			<div  class="control-group">
 				<div class="controls">
-					<p:commandButton value="#{msg['button.salvar']}"
+					<p:commandButton id="buttons" value="#{msg['button.salvar']}"
 						action="#{pedidoMB.salvar}" styleClass="btn btn-success" onclick="PF('dlg').show();" oncomplete="PF('dlg').hide();"
 						rendered="#{pedidoMB.pedido != null}" >
 						<f:ajax execute="@form" />

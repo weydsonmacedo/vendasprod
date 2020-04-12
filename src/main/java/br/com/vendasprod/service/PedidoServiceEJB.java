@@ -25,6 +25,8 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 	
 	@Inject
 	private QtdProdutoService qtdProdutoService;
+	@Inject
+	private ProdutoService produtoService;
 	
 	@Override
 	protected EntityManager getEntityManager() {
@@ -39,8 +41,10 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 
 	@Override
 	public Pedido saveQtdProdutosAndPedido(Pedido pedido, List<QtdProduto> listQtdProd) {
+		
 		pedido = this.save(pedido);
 		for (QtdProduto qtdProduto : listQtdProd) {
+			produtoService.subtractQtdProduto(qtdProduto.getQtdProdutos(), qtdProduto.getProduto());
 			qtdProduto.setPedido(pedido);
 			qtdProdutoService.save(qtdProduto);	
 		}

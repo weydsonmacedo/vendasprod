@@ -22,7 +22,7 @@ import br.com.vendasprod.service.PedidoService;
 import br.com.vendasprod.service.QtdProdutoService;
 
 /**
- * Componente responsável por finalizar o pedido
+ *  Componente responsável por integrar o front-end (paginas JSF) c/ camada de serviço (EJB) e por finalizar o pedido.
  * @author Macedo
  *
  */
@@ -57,16 +57,17 @@ public class PedidoMB extends GenericMB implements Serializable {
 	private  List<QtdProduto> selectedExcluirProdutos;
 	private List<Cliente> listClientes;
 	private Cliente cliente;
+	private boolean qtdUltrapassada = true;
 	
 	@PostConstruct
 	public void init() {
 		List<Produto> listProdutos = (List<Produto>) FacesContext.getCurrentInstance().getExternalContext().getFlash().get(LISTA_COMPRAS);
 		this.listQtdProdutos  = qtdProdutoService.parseProdutoToQtdProduto(listProdutos);
-		this.calcularPrecoTotal();
+		this.getPrecoTotal();
 		this.listClientes = clienteService.findAll();
 	}
 
-	public Double calcularPrecoTotal() {
+	public Double getPrecoTotal() {
 		return this.qtdProdutoService.calcularPrecoTotal(this.listQtdProdutos);
 	}
 	public String salvar() {
@@ -80,18 +81,24 @@ public class PedidoMB extends GenericMB implements Serializable {
 			return "";
 		}
 		logger.debug("Salvou pedido "+pedido.getId());
-		return "listaProdutos";
+		return "listaPedidos";
 	}
 	
 	
 	
 	private void montarPedido() {
 		this.pedido.setCliente(this.cliente);
-		this.pedido.setPreco(this.calcularPrecoTotal());
+		this.pedido.setPreco(this.getPrecoTotal());
 		this.pedido.setQtdProdutos(this.listQtdProdutos);
 	}
 
 
+	public void verificaQtd() {
+		if(this.qtdProdutoService.verificaQtd(listQtdProdutos)) {
+			addMessage(getMessageFromI18N("msg.info.qtdproduto.excedido"),"teste");
+			this.qtdUltrapassada = true;
+		}
+	}
 	public PedidoService getService() {
 		return service;
 	}
@@ -172,6 +179,12 @@ public class PedidoMB extends GenericMB implements Serializable {
 	public void setListPedidos(List<Pedido> listPedidos) {
 		this.listPedidos = listPedidos;
 	}
-	
-	
+
+	public boolean isQtdUltrapassada() {
+		return qtdUltrapassada;
+	}
+
+	public void setQtdUltrapassada(boolean qtdUltrapassada) {
+		this.qtdUltrapassada = qtdUltrapassada;
+	}
 }

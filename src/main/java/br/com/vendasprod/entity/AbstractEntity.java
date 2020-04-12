@@ -5,18 +5,13 @@ package br.com.vendasprod.entity;
 import java.io.Serializable;
 
 /**
- * Estipula um contrato base para as entidades persistentes da aplicação.
- * 
- * <p>Esse contrato é utilizado pelo componente base de persistência: <code>AbstractPersistence</code>.</p>
- * 
- * @see br.com.yaw.cdi.service.AbstractPersistence
- * 
- * @author YaW Tecnologia
+ * Estipula um contrato base para as entidades persistentes da aplicacao.
+ * @author Macedo
  */
 public interface AbstractEntity extends Serializable {
 
 	/**
-	 * @return A referência para a chave primária (Primary Key) de cada objeto persistido.
+	 * @return A referencia para a chave primaria (Primary Key) de cada objeto persistido.
 	 * 		   Caso o objeto ainda não tenha sido persistido, deve retornar <code>null</code>.
 	 */
 	public Number getId();

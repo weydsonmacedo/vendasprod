@@ -2,11 +2,7 @@ package br.com.vendasprod.service;
 
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
@@ -58,5 +54,10 @@ public class QtdProdutoServiceEJB extends AbstractPersistence<QtdProduto, Long> 
 			return listQtdProdutos.stream().map(q -> q.getProduto().getPreco() * (q.getQtdProdutos()!= null ? q.getQtdProdutos() : 0 )).reduce(Double.valueOf(0),Double::sum);
 		}
 		return null;
+	}
+
+	@Override
+	public boolean verificaQtd(List<QtdProduto> listQtdProdutos) {
+		return listQtdProdutos.stream().anyMatch( q -> (q.getQtdProdutos() == null ? 0 : q.getQtdProdutos()) > q.getProduto().getQuantidade());
 	}
 }

@@ -25,4 +25,8 @@ public class GenericMensage {
 	protected void addMessage(String summary, String detail) {
 		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>").concat(detail)));
 	}
+	
+	protected void addMessage(String summary) {
+		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>")));
+	}
 }

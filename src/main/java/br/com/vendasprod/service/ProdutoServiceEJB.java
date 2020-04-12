@@ -9,12 +9,9 @@ import javax.persistence.PersistenceContext;
 import br.com.vendasprod.entity.Produto;
 
 /**
- * Componente <code>EJB</code> que implementa as operações de negócio da entidade <code>Mercadoria</code>.
- * 
- * <p>Herda <code>AbstractPersistence</code> para resolver as operações básicas da persistência de <code>Mercadoria</code>.</p>
- * 
- * @see br.com.ProdutoService.cdi.service.MercadoriaService
- * @author YaW Tecnologia
+ * Interface de neg�cio para o Produto
+ * @author Macedo
+ *
  */
 @Stateless
 public class ProdutoServiceEJB extends AbstractPersistence<Produto, Long> implements ProdutoService {
@@ -30,6 +27,14 @@ public class ProdutoServiceEJB extends AbstractPersistence<Produto, Long> implem
 	
 	public ProdutoServiceEJB() {
 		super(Produto.class);
+	}
+
+	@Override
+	public void subtractQtdProduto(Integer qtd, Produto produto) {
+		produto = this.find(produto.getId());
+		produto.setQuantidade(produto.getQuantidade() - qtd);
+		this.save(produto);
+		
 	}
 	
 }

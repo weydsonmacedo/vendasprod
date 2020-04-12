@@ -2,7 +2,6 @@ package br.com.vendasprod.entity;
 
 
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,10 +26,9 @@ public class QtdProduto implements AbstractEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+	@ManyToOne
 	private Produto produto;
 	
-	@Column(columnDefinition = "integer default 0")
 	private Integer qtdProdutos;
 	
 	@ManyToOne
@@ -110,6 +108,6 @@ public class QtdProduto implements AbstractEntity {
 			return false;
 		return true;
 	}
-	
+
 	
 }

@@ -9,13 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Classe de modelo que representa uma mercadoria. A mercadoria é um objeto persistido, por isso utilizamos o nome entidade.
- * 
- * <p>As funcionalidades desse sistema demonstração são concentradas no cadastro (CRUD) de mercadorias.</p>
- * 
- * <p>Essa entidade é mapeada com anotações da <code>JPA</code>, o mecanismo padrão do Java para mapeamento <code>ORM</code>.</p>
- * 
- * @author YaW Tecnologia
+ * Classe de modelo que representa um produto
+ * @author Macedo
  */
 @Entity
 @Table(name="produto")
@@ -69,11 +64,11 @@ public class Produto implements AbstractEntity {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	
+
 	public Integer getQuantidade() {
 		return quantidade;
 	}
-	
+
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
@@ -126,6 +121,5 @@ public class Produto implements AbstractEntity {
 			return false;
 		return true;
 	}
-	
 	
 }

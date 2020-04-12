@@ -9,11 +9,9 @@ import javax.ejb.Local;
 import br.com.vendasprod.entity.Produto;
 
 /**
- * Determina a interface de negócio para estipular o serviço da entidade <code>Mercadoria</code>.
+ * Determina a interface de negocio para estipular o servi�o da entidade 
  * 
- * <p>Indica o uso da interface <code>Local</code> para o serviço <code>EJB</code>.
- * 
- * @author YaW Tecnologia
+ * @author Macedo
  */
 @Local
 public interface ProdutoService {
@@ -25,5 +23,7 @@ public interface ProdutoService {
 	public Produto find(Long id);
 	
 	public List<Produto> findAll();
+	
+	public void subtractQtdProduto(Integer qtd, Produto produto);
 
 }

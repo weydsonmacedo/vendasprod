@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *  Classe que representa os pedidos
+ *  Classe que representa os clientes
  * @author Macedo
  *
  */
@@ -28,9 +28,11 @@ public class Cliente implements AbstractEntity {
 	
 	private String nome;
 	private String endereco;
+	
 	public Cliente() {
 		
 	}
+	
 	public Cliente (String nome, String endereco) {
 		this.nome = nome;
 		this.endereco = endereco;
