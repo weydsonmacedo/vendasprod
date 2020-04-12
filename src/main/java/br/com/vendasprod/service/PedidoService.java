@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import br.com.vendasprod.entity.Pedido;
+import br.com.vendasprod.entity.QtdProduto;
 
 /**
  * Interface de negócio para o pedido
@@ -17,6 +18,7 @@ import br.com.vendasprod.entity.Pedido;
 public interface PedidoService {
 
 	public Pedido save(Pedido pedido);
+	public Pedido saveQtdProdutosAndPedido(Pedido pedido, List<QtdProduto> listQtdProd);
 	
 	public void remove(Pedido pedido);
 	

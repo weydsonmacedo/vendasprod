@@ -12,7 +12,7 @@
 	<ui:define name="content">
 		<div style="border-bottom: 1px solid #E5E5E5;">
 			<h3>
-				<h:outputText value="#{msg['label.produtos']}" />
+				<h:outputText value="#{msg['label.pedidos']}" />
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
 			</h3>
 		</div>
@@ -48,8 +48,10 @@
 				<p:column >
 					<f:facet name="header">
 						<h:outputText value="#{msg['label.produto.quantidade']}" />
-						<h:inputText value="#{qtdProd.qtdProdutos}" />
 					</f:facet>
+					<h:inputText value="#{qtdProd.qtdProdutos}" >
+					    <p:ajax event="blur" update="total" />
+					</h:inputText>
 				</p:column>
 	
 				<p:column sortBy="#{qtdProd.produto.preco}">
@@ -60,10 +62,59 @@
 						<f:convertNumber type="currency"  />
 					</h:outputText>
 				</p:column>
-				 <f:facet name="footer">
-           			  	<h:outputText value="#{pedidoMB.precoTotal}"/>
+				 <f:facet  id="total" name="footer">
+						 <h:outputText value="#{msg['label.pedidos.total']}"/>
+           			  	<h:outputText value="#{pedidoMB.calcularPrecoTotal}">
+           			  			<f:convertNumber type="currency"  />
+           			  	</h:outputText>	  	
        			 </f:facet>
 			</p:dataTable>
+			
+		<p:outputLabel for="@next" value="#{msg['label.pedidos.cliente']}" />
+        <p:selectOneMenu id="advanced" value="#{pedidoMB.cliente}" converter="#{clienteConverter}" panelStyle="width:180px"
+                         effect="fade" var="cli" style="width:300px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{pedidoMB.listClientes}" var="cliente" itemLabel="#{cliente.nome}" itemValue="#{cliente}" />
+ 
+<!--             <p:column style="width:10%"> -->
+<!--                 <h:graphicImage name="showcase/images/themeswitcher/themeswitcher-#{t.name}.png" alt="#{t.name}" styleClass="ui-theme" /> -->
+<!--             </p:column> -->
+ 
+            <p:column>
+               <f:facet name="header">
+                   <h:outputText value="#{msg['label.pedidos.cliente.nome']}"/>
+                </f:facet>
+                <h:outputText value="#{cli.nome}" />
+            </p:column>
+            <p:column>
+               <f:facet name="header">
+                   <h:outputText value="#{msg['label.pedidos.cliente.endereco']}"/>
+                </f:facet>
+                <h:outputText value="#{cli.endereco}" />
+            </p:column>
+             
+            <f:facet name="footer">
+               <p:separator />
+               <h:outputText value="#{pedidoMB.listClientes.size()} Clientes" style="font-weight:bold;"/>
+            </f:facet>
+        </p:selectOneMenu>
+			<div class="control-group">
+				<div class="controls">
+					<p:commandButton value="#{msg['button.salvar']}"
+						action="#{pedidoMB.salvar}" styleClass="btn btn-success" onclick="PF('dlg').show();" oncomplete="PF('dlg').hide();"
+						rendered="#{pedidoMB.pedido != null}" >
+						<f:ajax execute="@form" />
+					</p:commandButton>	
+					<p:button value="#{msg['button.cancelar']}"
+						outcome="listaProdutos" styleClass="btn" />
+<!-- 					<p:commandButton value="#{msg['button.excluir']}" -->
+<!-- 						onclick="PF('confirmation').show()" -->
+<!-- 						rendered="#{produtoMB.produto.id != null}" immediate="true" -->
+<!-- 						styleClass="btn btn-danger" /> -->
+				</div>
+		</div>
+		<p:dialog id="dialog" header="#{msg['dialog.emexecucao.titulo']}" widgetVar="dlg" dynamic="true" modal="true">  
+	    	<h:outputText value="#{msg['dialog.emexecucao.aguarde']}" />  
+		</p:dialog>
 		</h:form>
 		<h:messages />
 	</ui:define>

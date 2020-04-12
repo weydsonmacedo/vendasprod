@@ -26,5 +26,6 @@ public interface QtdProdutoService {
 	public List<QtdProduto> findAll();
 	
 	public  List<QtdProduto> parseProdutoToQtdProduto(List<Produto> produtos);
+	public Double calcularPrecoTotal(List<QtdProduto> listQtdProdutos);
 
 }

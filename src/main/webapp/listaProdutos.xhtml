@@ -60,9 +60,8 @@
 					</h:outputText>
 				</p:column>
 				 <f:facet name="footer">
-           			 <p:commandButton process="dataTable" update=":form:dataTable" icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
-       				 <p:commandButton id="finalizar" value="#{msg['finalizar.compra']}"  
-	        			oncomplete="PF('confirmation').hide()" action="#{produtoMB.finalizarCompra}" />  	
+       				 <p:commandButton   styleClass="btn" id="finalizar" value="#{msg['finalizar.compra']}" 
+	        			action="#{produtoMB.finalizarCompra}" />  	
        			 </f:facet>
 			</p:dataTable>
 		</h:form>

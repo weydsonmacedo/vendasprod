@@ -2,11 +2,15 @@ package br.com.vendasprod.service;
 
 
 
+import java.util.List;
+
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.vendasprod.entity.Pedido;
+import br.com.vendasprod.entity.QtdProduto;
 
 /** Implementas as operações de negócio do Pedido
  * 
@@ -19,6 +23,8 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 	@PersistenceContext
     private EntityManager em;
 	
+	@Inject
+	private QtdProdutoService qtdProdutoService;
 	
 	@Override
 	protected EntityManager getEntityManager() {
@@ -28,5 +34,18 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 	public PedidoServiceEJB() {
 		super(Pedido.class);
 	}
+	
+
+
+	@Override
+	public Pedido saveQtdProdutosAndPedido(Pedido pedido, List<QtdProduto> listQtdProd) {
+		pedido = this.save(pedido);
+		for (QtdProduto qtdProduto : listQtdProd) {
+			qtdProduto.setPedido(pedido);
+			qtdProdutoService.save(qtdProduto);	
+		}
+		return null;
+	}
+	
 	
 }

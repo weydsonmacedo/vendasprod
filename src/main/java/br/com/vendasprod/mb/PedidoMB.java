@@ -6,13 +6,18 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.log4j.Logger;
+
+import br.com.vendasprod.entity.Cliente;
+import br.com.vendasprod.entity.Pedido;
 import br.com.vendasprod.entity.Produto;
 import br.com.vendasprod.entity.QtdProduto;
+import br.com.vendasprod.service.ClienteService;
 import br.com.vendasprod.service.PedidoService;
 import br.com.vendasprod.service.QtdProdutoService;
 
@@ -22,8 +27,14 @@ import br.com.vendasprod.service.QtdProdutoService;
  *
  */
 @Named
-@RequestScoped
-public class PedidoMB implements Serializable {
+@ViewScoped
+public class PedidoMB extends GenericMB implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -837088857888574909L;
+	Logger logger = Logger.getLogger("br.com.vendasprod.mb.PedidoMB");
 	
 	private static final String LISTA_COMPRAS = "lista_compras";
 
@@ -35,17 +46,51 @@ public class PedidoMB implements Serializable {
 	
 	@Inject 
 	private QtdProdutoService qtdProdutoService;
+	@Inject 
+	private ClienteService clienteService;
+	@Inject
+	private Pedido pedido;
+	
+	private List<Pedido> listPedidos;
 	
 	private List<QtdProduto> listQtdProdutos;
 	private  List<QtdProduto> selectedExcluirProdutos;
-	private Double precoTotal; 
+	private List<Cliente> listClientes;
+	private Cliente cliente;
 	
 	@PostConstruct
 	public void init() {
 		List<Produto> listProdutos = (List<Produto>) FacesContext.getCurrentInstance().getExternalContext().getFlash().get(LISTA_COMPRAS);
 		this.listQtdProdutos  = qtdProdutoService.parseProdutoToQtdProduto(listProdutos);
-		this.precoTotal = this.listQtdProdutos.stream().map(q -> q.getProduto().getPreco()).reduce(Double.valueOf(0),Double::sum);
+		this.calcularPrecoTotal();
+		this.listClientes = clienteService.findAll();
 	}
+
+	public Double calcularPrecoTotal() {
+		return this.qtdProdutoService.calcularPrecoTotal(this.listQtdProdutos);
+	}
+	public String salvar() {
+		montarPedido();
+		try {
+			logger.info("salvando..." +service.getClass());
+			service.saveQtdProdutosAndPedido(this.pedido, this.listQtdProdutos);
+		} catch(Exception ex) {
+			logger.error("Erro ao salvar pedido.", ex);
+			addMessage(getMessageFromI18N("msg.erro.salvar.pedido"), ex.getMessage());
+			return "";
+		}
+		logger.debug("Salvou pedido "+pedido.getId());
+		return "listaProdutos";
+	}
+	
+	
+	
+	private void montarPedido() {
+		this.pedido.setCliente(this.cliente);
+		this.pedido.setPreco(this.calcularPrecoTotal());
+		this.pedido.setQtdProdutos(this.listQtdProdutos);
+	}
+
 
 	public PedidoService getService() {
 		return service;
@@ -78,13 +123,55 @@ public class PedidoMB implements Serializable {
 	public void setSelectedExcluirProdutos(List<QtdProduto> selectedExcluirProdutos) {
 		this.selectedExcluirProdutos = selectedExcluirProdutos;
 	}
-
-	public Double getPrecoTotal() {
-		return precoTotal;
+	
+	public List<Cliente> getListClientes() {
+		return listClientes;
 	}
 
-	public void setPrecoTotal(Double precoTotal) {
-		this.precoTotal = precoTotal;
+	public void setListClientes(List<Cliente> listClientes) {
+		this.listClientes = listClientes;
 	}
 
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public ClienteService getClienteService() {
+		return clienteService;
+	}
+
+
+	public void setClienteService(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
+
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+
+	public List<Pedido> getListPedidos() {
+		if (this.listPedidos == null) {
+			this.listPedidos = service.findAll();
+		}
+		return this.listPedidos;
+	}
+
+
+	public void setListPedidos(List<Pedido> listPedidos) {
+		this.listPedidos = listPedidos;
+	}
+	
+	
 }

@@ -17,23 +17,10 @@
 
 	<navigation-rule>
 		<navigation-case>
-			<from-outcome>listaMercadorias</from-outcome>
-			<to-view-id>/listaMercadorias.xhtml</to-view-id>
+			<from-outcome>listaProdutos</from-outcome>
+			<to-view-id>/listaProdutos.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
 
-	<!-- define uma lista para servir como MB para a tela sobre 
-	<managed-bean>
-		<description>Sobre a aplicacao</description>
-		<managed-bean-name>sobreMB</managed-bean-name>
-		<managed-bean-class>java.util.ArrayList</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-		<list-entries>
-			<value>sobre.title</value>
-			<value>sobre.built</value>
-			<value>sobre.site</value>
-			<value>sobre.build</value>
-		</list-entries>
-	</managed-bean>-->
 </faces-config>

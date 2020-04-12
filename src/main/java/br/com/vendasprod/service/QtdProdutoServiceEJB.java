@@ -40,12 +40,23 @@ public class QtdProdutoServiceEJB extends AbstractPersistence<QtdProduto, Long> 
 
 	@Override
 	public List<QtdProduto> parseProdutoToQtdProduto(List<Produto> produtos) {
-		return produtos.stream().map(this::parse).collect(Collectors.toList());
+		if (produtos != null) {			
+			return produtos.stream().map(this::parse).collect(Collectors.toList());
+		}
+		return null;
 	}
 	
 	private QtdProduto parse(Produto produto) {
 		 	QtdProduto obj = new QtdProduto();
 		 	obj.setProduto(produto);
 		 	return obj;
+	}
+
+	@Override
+	public Double calcularPrecoTotal(List<QtdProduto> listQtdProdutos) {
+		if (listQtdProdutos != null) {			
+			return listQtdProdutos.stream().map(q -> q.getProduto().getPreco() * (q.getQtdProdutos()!= null ? q.getQtdProdutos() : 0 )).reduce(Double.valueOf(0),Double::sum);
+		}
+		return null;
 	}
 }
