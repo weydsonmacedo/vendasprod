@@ -48,9 +48,30 @@
 						<f:convertNumber type="currency"  />
 					</h:outputText>
 				</p:column>
+				<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{msg['label.pedido.excluir']}" />
+				</f:facet>
+				
+					<p:commandButton   value="Excluir" actionListener="#{pedidoMB.remover(pedido)}" update=":form:dataTable"/>
+<!-- 				<p:commandLink value="#{msg['button.excluir']}" -->
+<!-- 					onclick="PF('confirmation').show()" -->
+<!-- 								 immediate="true" -->
+<!-- 					styleClass="btn btn-danger" /> -->
+<!-- 				</h:outputText> -->
+
+				</p:column>
 			</p:dataTable>
-		</h:form>
+			<p:confirmDialog id="confirmDialog" message="#{msg['excluir.pedido.confirma']}"
+				header="#{msg['excluir.pedido']}" severity="alert" widgetVar="confirmation">  
+		        <p:commandButton id="confirm" value="#{msg['confirma.sim']}" update="messages" 
+		        	oncomplete="PF('confirmation').hide()" action="#{pedidoMB.remover}" />  
+		        <p:commandButton id="decline" value="#{msg['confirma.nao']}" 
+		        	onclick="PF('confirmation').hide()" type="button" />
+	    </p:confirmDialog>
 		<h:messages />
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

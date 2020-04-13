@@ -66,4 +66,10 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 		 TypedQuery<Pedido> typedQuery = em.createQuery(q);
 		  return typedQuery.getResultList();
 	}
+	
+	@Override
+	public void remove(Pedido entity) {
+		qtdProdutoService.removeAll(entity.getQtdProdutos());
+		super.remove(entity);
+	}
 }

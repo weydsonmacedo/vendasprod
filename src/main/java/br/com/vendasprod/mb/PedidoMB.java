@@ -85,13 +85,24 @@ public class PedidoMB extends GenericMB implements Serializable {
 		logger.debug("Salvou pedido "+pedido.getId());
 		return "listaPedidos";
 	}
+
+	public String remover(Pedido pedido) {
+		try {
+			service.remove(pedido);
+		} catch(Exception ex) {
+			logger.error("Erro ao remover pedido.", ex);
+			addMessage(getMessageFromI18N("msg.erro.remover.pedido"), ex.getMessage());
+			return "";
+		}
+		logger.debug("Removeu produto "+this.pedido.getId());
+		return "listaPedidos";
+	}
 	
 	
 	
 	private void montarPedido() {
 		this.pedido.setCliente(this.cliente);
 		this.pedido.setPreco(this.getPrecoTotal());
-		this.pedido.setQtdProdutos(this.listQtdProdutos);
 	}
 
 
@@ -101,6 +112,11 @@ public class PedidoMB extends GenericMB implements Serializable {
 			addMessage(getMessageFromI18N("msg.warn.qtdproduto.excedido"), "Máximo de "+prod.getNome() +" disponíveis :"+ prod.getQuantidade());
 			return false;
 		}
+		 if(this.qtdProdutoService.verificaProdutoQtdZerado(listQtdProdutos)) {
+				addMessage(getMessageFromI18N("msg.warn.qtdproduto.zerado"), getMessageFromI18N("msg.warn.qtdproduto.zerado.solucao"));
+			return false;	
+		 }
+		
 		return true;
 	}
 	public PedidoService getService() {

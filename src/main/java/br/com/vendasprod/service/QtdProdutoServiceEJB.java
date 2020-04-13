@@ -65,4 +65,15 @@ public class QtdProdutoServiceEJB extends AbstractPersistence<QtdProduto, Long> 
 		}
 		return null;
 	}
+
+	@Override
+	public void removeAll(List<QtdProduto> qtdProdutos) {
+		qtdProdutos.stream().forEach(q-> this.remove(q));
+		
+	}
+
+	@Override
+	public boolean verificaProdutoQtdZerado(List<QtdProduto> listQtdProdutos) {
+		return listQtdProdutos.stream().anyMatch(p -> p.getQtdProdutos() == null || p.getQtdProdutos() <= 0);
+	}
 }

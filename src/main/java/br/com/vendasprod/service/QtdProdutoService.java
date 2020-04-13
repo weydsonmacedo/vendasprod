@@ -28,5 +28,7 @@ public interface QtdProdutoService {
 	public  List<QtdProduto> parseProdutoToQtdProduto(List<Produto> produtos);
 	public Double calcularPrecoTotal(List<QtdProduto> listQtdProdutos);
 	public Produto verificaProdutoQtdExcedido(List<QtdProduto> listQtdProdutos);
+	public boolean verificaProdutoQtdZerado(List<QtdProduto> listQtdProdutos);
+	public void removeAll(List<QtdProduto> qtdProdutos);
 
 }
