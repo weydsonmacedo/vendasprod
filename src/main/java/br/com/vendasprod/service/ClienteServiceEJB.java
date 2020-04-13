@@ -42,7 +42,7 @@ public class ClienteServiceEJB extends AbstractPersistence<Cliente, Long> implem
 		 clientes.add(new Cliente( "KEZIA", "LIBERTY CITY"));
 		 clientes.add(new Cliente( "JAMILE", "SALVADOR"));
 		 clientes.add(new Cliente( "MOANA", "ISLAND"));
-		 clientes.add(new Cliente( "ANNE WITH E", "LAKE OF THE SHINNING WATERS"));
+		 clientes.add(new Cliente( "ANNE WITH E", "LAKE OF THE SHINING WATERS"));
 		 clientes.add(new Cliente( "STAFANINI", "INEMA"));
 		 clientes.stream().forEach( c -> this.save(c) );
 		 return clientes;
