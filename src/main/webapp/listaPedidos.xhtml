@@ -53,7 +53,13 @@
 					<h:outputText value="#{msg['label.pedido.excluir']}" />
 				</f:facet>
 				
-					<p:commandButton   value="Excluir" actionListener="#{pedidoMB.remover(pedido)}" update=":form:dataTable"/>
+					<p:commandButton    actionListener="#{pedidoMB.remover(pedido)}" update="dataTable"
+						value="#{msg['button.excluir']}"
+					onclick="PF('confirmation').show()"
+					 immediate="true"
+					styleClass="btn btn-danger"
+					/>
+					
 <!-- 				<p:commandLink value="#{msg['button.excluir']}" -->
 <!-- 					onclick="PF('confirmation').show()" -->
 <!-- 								 immediate="true" -->
@@ -63,7 +69,7 @@
 				</p:column>
 			</p:dataTable>
 			<p:confirmDialog id="confirmDialog" message="#{msg['excluir.pedido.confirma']}"
-				header="#{msg['excluir.pedido']}" severity="alert" widgetVar="confirmation">  
+				header="#{msg['label.pedido.excluir']}" severity="alert" widgetVar="confirmation">  
 		        <p:commandButton id="confirm" value="#{msg['confirma.sim']}" update="messages" 
 		        	oncomplete="PF('confirmation').hide()" action="#{pedidoMB.remover}" />  
 		        <p:commandButton id="decline" value="#{msg['confirma.nao']}" 
