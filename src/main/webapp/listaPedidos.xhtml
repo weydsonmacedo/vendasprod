@@ -16,16 +16,12 @@
 				<small> <h:outputText value="#{msg['label.listagem']}" /></small>
 			</h3>
 		</div>
-		<h:form id="form">
+		<h:form id="forme">
 				<p:dataTable id="dataTable" var="pedido"
 				value="#{pedidoMB.listPedidos}" paginator="true" rows="5"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
-				<p:column>
-					<f:facet name="header">#</f:facet>
-					<h:outputText value="#{pedido.id}" />
-				</p:column>
-	
+				
 				<p:column sortBy="#{pedido.cliente.nome}">
 					<f:facet name="header">
 						<h:outputText value="#{msg['label.pedidos.cliente.nome']}" />
@@ -53,19 +49,13 @@
 					<h:outputText value="#{msg['label.pedido.excluir']}" />
 				</f:facet>
 				
-					<p:commandButton    actionListener="#{pedidoMB.remover(pedido)}" update="dataTable"
+					<p:commandButton  style="color:red"  actionListener="#{pedidoMB.remover(pedido)}" update="dataTable" ajax="true" process="@all"
 						value="#{msg['button.excluir']}"
-					onclick="PF('confirmation').show()"
 					 immediate="true"
-					styleClass="btn btn-danger"
-					/>
+					 oncomplete="#{pedidoMB.listPedidos}"
+					>
+					</p:commandButton>
 					
-<!-- 				<p:commandLink value="#{msg['button.excluir']}" -->
-<!-- 					onclick="PF('confirmation').show()" -->
-<!-- 								 immediate="true" -->
-<!-- 					styleClass="btn btn-danger" /> -->
-<!-- 				</h:outputText> -->
-
 				</p:column>
 			</p:dataTable>
 			<p:confirmDialog id="confirmDialog" message="#{msg['excluir.pedido.confirma']}"

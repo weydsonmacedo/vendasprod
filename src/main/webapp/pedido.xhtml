@@ -22,10 +22,7 @@
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15" rowKey="#{qtdProd.produto.id}">
 				 <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-				<p:column>
-					<f:facet name="header">#</f:facet>
-					<h:outputText value="#{qtdProd.produto.id}" />
-				</p:column>
+				
 	
 				<p:column sortBy="#{qtdProd.produto.nome}">
 					<f:facet name="header">
@@ -93,8 +90,8 @@
 				<div class="controls">
 					<p:commandButton id="buttons" value="#{msg['button.salvar']}"
 						action="#{pedidoMB.salvar}" styleClass="btn btn-success" onclick="PF('dlg').show();" oncomplete="PF('dlg').hide();"
-						rendered="#{pedidoMB.pedido != null}" >
-						<f:ajax execute="@form" />
+						rendered="#{pedidoMB.listClientes.size() > 0}"  ajax="true" process="@all">
+						
 					</p:commandButton>	
 					<p:button value="#{msg['button.cancelar']}"
 						outcome="listaProdutos" styleClass="btn" />

@@ -86,18 +86,16 @@ public class PedidoMB extends GenericMB implements Serializable {
 		return "listaPedidos";
 	}
 
-	public String remover(Pedido pedido) {
+	public void remover(Pedido pedido) {
 		try {
 			service.remove(pedido);
 		} catch(Exception ex) {
 			logger.error("Erro ao remover pedido.", ex);
 			addMessage(getMessageFromI18N("msg.erro.remover.pedido"), ex.getMessage());
-			return "";
 		}
 		logger.debug("Removeu produto "+this.pedido.getId());
-		return "listaPedidos";
+		
 	}
-	
 	
 	
 	private void montarPedido() {
@@ -189,9 +187,7 @@ public class PedidoMB extends GenericMB implements Serializable {
 
 
 	public List<Pedido> getListPedidos() {
-		if (this.listPedidos == null) {
 			this.listPedidos = service.findAllEager();
-		}
 		return this.listPedidos;
 	}
 

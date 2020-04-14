@@ -5,6 +5,7 @@ package br.com.vendasprod.mb;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -91,9 +92,13 @@ public class ProdutoMB extends GenericMB implements Serializable {
 	}
 	
 	public String remover() {
-		try {
+		try  {
 			service.remove(produto);
-		} catch(Exception ex) {
+		} catch (EJBTransactionRolledbackException  e) {
+			addMessage(getMessageFromI18N("msg.erro.remover.produto"), getMessageFromI18N("msg.erro.remover.produto.excluir.pedido"));
+			return "";
+		}
+		catch(Exception ex) {
 			logger.error("Erro ao remover produto.", ex);
 			addMessage(getMessageFromI18N("msg.erro.remover.produto"), ex.getMessage());
 			return "";

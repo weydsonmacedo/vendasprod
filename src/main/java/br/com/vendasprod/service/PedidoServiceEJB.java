@@ -62,7 +62,7 @@ public class PedidoServiceEJB extends AbstractPersistence<Pedido, Long> implemen
 		CriteriaQuery<Pedido> q = cb.createQuery(Pedido.class);
 		Root<Pedido> c = q.from(Pedido.class);  
 		Fetch<Pedido,QtdProduto> p = c.fetch("qtdProdutos");
-		 q.select(c);
+		 q.select(c).distinct(true);
 		 TypedQuery<Pedido> typedQuery = em.createQuery(q);
 		  return typedQuery.getResultList();
 	}

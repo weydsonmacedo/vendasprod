@@ -8,12 +8,18 @@ import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 
+/**
+ * classe genérica de mensagens
+ * @author Macedo
+ *
+ */
+
 @Named
 public class GenericMensage implements Serializable{
 
 	/**
 	 * @param key
-	 * @return Recupera a mensagem do arquivo properties <code>ResourceBundle</code>.
+	 * @return Recupera a mensagem do arquivo properties ResourceBundle.
 	 */
 	protected String getMessageFromI18N(String key) {
 		ResourceBundle bundle = ResourceBundle.getBundle("messages_labels", getCurrentInstance().getViewRoot().getLocale());
@@ -21,15 +27,15 @@ public class GenericMensage implements Serializable{
 	}
 	
 	/**
-	 * Adiciona um mensagem no contexto do Faces (<code>FacesContext</code>).
+	 * Adiciona uma mensagem no contexto do Faces.
 	 * @param summary
 	 * @param detail
 	 */
 	protected void addMessage(String summary, String detail) {
-		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>").concat(detail)));
+		getCurrentInstance().addMessage(null, new FacesMessage(summary, detail));
 	}
 	
 	protected void addMessage(String summary) {
-		getCurrentInstance().addMessage(null, new FacesMessage(summary, summary.concat("<br/>")));
+		getCurrentInstance().addMessage(null, new FacesMessage(summary));
 	}
 }

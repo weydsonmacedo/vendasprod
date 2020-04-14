@@ -32,8 +32,11 @@ public class ClienteServiceEJB extends AbstractPersistence<Cliente, Long> implem
 	public ClienteServiceEJB() {
 		super(Cliente.class);
 	}
-	
-	
+
+/**
+ * método teporário para carregamento dos dados de cliente! deve ser retirado após realizar a carga manual via sql	
+ */
+	@Override
 	public List<Cliente> findAll(){
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		 clientes.add(new Cliente( "GLEICA", "SÃO JOSÉ DOS CAMPOS"));

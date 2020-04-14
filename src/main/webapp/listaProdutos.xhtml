@@ -23,18 +23,25 @@
 				rowsPerPageTemplate="5,10,15" rowKey="#{produto.id}">
 				 <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 				<p:column>
-					<f:facet name="header">#</f:facet>
-					<h:outputText value="#{produto.id}" />
+					<f:facet name="header">
+					<h:outputText value="#{msg['label.produto.Acao']}" />
+					</f:facet>
+					<h:button  outcome="editarProduto" value="#{msg['label.produto.editar']}"
+						title="#{msg['label.editar']} #{produto.nome}">
+						<f:param name="id" value="#{produto.id}" />
+					</h:button >
 				</p:column>
+				
+<!-- 				<p:column> -->
+<!-- 					<f:facet name="header">#</f:facet> -->
+<!-- 					<h:outputText value="#{produto.id}" /> -->
+<!-- 				</p:column> -->
 	
 				<p:column sortBy="#{produto.nome}">
 					<f:facet name="header">
 						<h:outputText value="#{msg['label.produto.nome']}" />
 					</f:facet>
-					<h:link outcome="editarProduto" value="#{produto.nome}"
-						title="#{msg['label.editar']} #{produto.nome}">
-						<f:param name="id" value="#{produto.id}" />
-					</h:link>
+						<h:outputText value="#{produto.nome}" />
 				</p:column>
 	
 				<p:column sortBy="#{produto.descricao}">

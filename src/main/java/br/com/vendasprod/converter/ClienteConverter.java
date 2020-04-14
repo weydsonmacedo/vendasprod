@@ -13,6 +13,11 @@ import br.com.vendasprod.base.GenericMensage;
 import br.com.vendasprod.entity.Cliente;
 import br.com.vendasprod.service.ClienteService;
 
+/**
+ * classe que faz um intercept de dados para converter e devolver o id do campo no xhtml
+ * @author Macedo
+ *
+ */
 @Named
 @FacesConverter(value = "clienteConverter", managed = true)
 public class ClienteConverter extends GenericMensage implements Converter<Object>{
