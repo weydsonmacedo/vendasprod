@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 
+import br.com.vendasprod.dao.QtdProdutoDAO;
 import br.com.vendasprod.entity.Produto;
 import br.com.vendasprod.entity.QtdProduto;
 
@@ -20,20 +20,10 @@ import br.com.vendasprod.entity.QtdProduto;
  *
  */
 @Stateless
-public class QtdProdutoServiceEJB extends AbstractPersistence<QtdProduto, Long> implements QtdProdutoService {
+public class QtdProdutoServiceEJB  implements QtdProdutoService {
 
-	@PersistenceContext
-    private EntityManager em;
-	
-	
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
-	
-	public QtdProdutoServiceEJB() {
-		super(QtdProduto.class);
-	}
+	@Inject
+	QtdProdutoDAO dao;
 
 	@Override
 	public List<QtdProduto> parseProdutoToQtdProduto(List<Produto> produtos) {
@@ -76,4 +66,26 @@ public class QtdProdutoServiceEJB extends AbstractPersistence<QtdProduto, Long> 
 	public boolean verificaProdutoQtdZerado(List<QtdProduto> listQtdProdutos) {
 		return listQtdProdutos.stream().anyMatch(p -> p.getQtdProdutos() == null || p.getQtdProdutos() <= 0);
 	}
+
+	@Override
+	public QtdProduto save(QtdProduto produto) {
+		return this.dao.save(produto);
+	}
+
+	@Override
+	public void remove(QtdProduto produto) {
+		this.dao.remove(produto);
+	}
+
+	@Override
+	public QtdProduto find(Long id) {
+		return this.dao.find(id);
+	}
+
+	@Override
+	public List<QtdProduto> findAll() {
+		return this.dao.findAll();
+	}
+
+	
 }

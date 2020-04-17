@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.inject.Inject;
 
+import br.com.vendasprod.dao.ClienteDAO;
 import br.com.vendasprod.entity.Cliente;
 
 
@@ -18,20 +18,15 @@ import br.com.vendasprod.entity.Cliente;
  *
  */
 @Stateless
-public class ClienteServiceEJB extends AbstractPersistence<Cliente, Long> implements ClienteService {
+public class ClienteServiceEJB implements ClienteService {
 
-	@PersistenceContext
-    private EntityManager em;
 	
 	
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+	@Inject
+	private ClienteDAO dao;
 	
-	public ClienteServiceEJB() {
-		super(Cliente.class);
-	}
+	
+	
 
 /**
  * método teporário para carregamento dos dados de cliente! deve ser retirado após realizar a carga manual via sql	
@@ -49,5 +44,19 @@ public class ClienteServiceEJB extends AbstractPersistence<Cliente, Long> implem
 		 clientes.add(new Cliente( "STAFANINI", "INEMA"));
 		 clientes.stream().forEach( c -> this.save(c) );
 		 return clientes;
+	}
+	
+	
+	@Override
+	public Cliente save(Cliente cliente) {
+		return this.dao.save(cliente);
+	}
+	@Override
+	public void remove(Cliente cliente) {
+		this.dao.remove(cliente);
+	}
+	@Override
+	public Cliente find(Long id) {
+		return this.dao.find(id);
 	}
 }

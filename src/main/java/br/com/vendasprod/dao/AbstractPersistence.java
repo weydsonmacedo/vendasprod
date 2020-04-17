@@ -1,4 +1,4 @@
-package br.com.vendasprod.service;
+package br.com.vendasprod.dao;
 
 
 

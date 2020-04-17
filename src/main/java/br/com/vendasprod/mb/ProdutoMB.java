@@ -24,6 +24,10 @@ import br.com.vendasprod.service.ProdutoService;
 @RequestScoped
 public class ProdutoMB extends GenericMB implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5754140835289884504L;
 	private static final String LISTA_COMPRAS = "lista_compras";
 	Logger logger = Logger.getLogger("br.com.vendasprod.mb.ProdutoMB");
 
@@ -34,7 +38,7 @@ public class ProdutoMB extends GenericMB implements Serializable {
 	private ProdutoService service;
 	
 	/**
-	 * Referência para a mercadoria utiliza na inclusão (nova) ou edição.
+	 * Refer�ncia para a mercadoria utiliza na inclusão (nova) ou edição.
 	 */
 	@Inject
 	private Produto produto;

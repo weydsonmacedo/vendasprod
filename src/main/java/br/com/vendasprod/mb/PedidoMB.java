@@ -39,7 +39,7 @@ public class PedidoMB extends GenericMB implements Serializable {
 	private static final String LISTA_COMPRAS = "lista_compras";
 
 	/**
-	 * ReferÃªncia para o componente EJB, injetado pelo container.
+	 * Referência para o componente EJB, injetado pelo container.
 	 */
 	@Inject
 	private PedidoService service;
