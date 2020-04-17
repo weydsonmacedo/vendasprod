@@ -22,7 +22,7 @@ Pre-requisitos para o Funcionamento:
 * Maven - para build e dependências;
 * Application Server Java EE - Wildfly 18;
 * Banco de dados - H2 (DBMS) - pode ser colocado qualquer outro banco (MySQL, PostgreSql, SqlServer) bastando apenas trocar
-o *<jta-data-source>* e a propriedade do *dialect* na classe *persistence.xml* (inclusive deixei uma como exemplo comentado no código);
+o *jta-data-source* e a propriedade do *dialect* na classe *persistence.xml* (inclusive deixei uma como exemplo comentado no código);
 
 Instalação:
 -------
