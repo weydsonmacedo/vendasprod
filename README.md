@@ -34,12 +34,13 @@ Pre-requisitos para o Funcionamento:
 						<user-name>*****</user-name>
 						<password>*****</password>
 						</security>
-				 </datasource>
-				 
+				 </datasource> 
 )
 
 
-* e informar o driver: *<driver name="mysql" module="com.mysql"/>*
+* e informar o driver: 
+
+		<driver name="mysql" module="com.mysql"/>
 * Na pasta do servidor: *wildfly/modules/com/msql/main* (se nao tiver crie)
 * crie um arquivo com o nome *module.xml*:
 	
