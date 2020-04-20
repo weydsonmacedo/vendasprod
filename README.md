@@ -44,16 +44,17 @@ Pre-requisitos para o Funcionamento:
 * Na pasta do servidor: *wildfly/modules/com/msql/main* (se nao tiver crie)
 * crie um arquivo com o nome *module.xml*:
 	
-	<?xml version="1.0" encoding="UTF-8"?>
-	<module xmlns="urn:jboss:module:1.1" name="com.mysql"> 
-	    <resources>
-	        <resource-root path="mysql-connector-java-8.0.19.jar"/>
-	    </resources>
-	    <dependencies>
-	        <module name="javax.api"/>
-	        <module name="javax.transaction.api"/>
-	    </dependencies>
-</module>
+	
+		<?xml version="1.0" encoding="UTF-8"?>
+		<module xmlns="urn:jboss:module:1.1" name="com.mysql"> 
+		    <resources>
+		        <resource-root path="mysql-connector-java-8.0.19.jar"/>
+		    </resources>
+		    <dependencies>
+		        <module name="javax.api"/>
+		        <module name="javax.transaction.api"/>
+		    </dependencies>
+	</module>
 
 * Nesta mesma pasta baixe o conector da internet e coloque lá. ex: *mysql-connector-java-8.0.19.jar*.
 * após todos os passos dentro do projeto na pasta: *webapp/resources/sql/*  tem um arquivo chamado *Dump.sql*.
