@@ -23,7 +23,7 @@ public class Cliente implements AbstractEntity {
 	private static final long serialVersionUID = 617002283863895375L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;

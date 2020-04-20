@@ -22,7 +22,7 @@ public class Produto implements AbstractEntity {
 	private static final long serialVersionUID = -4038022223830527705L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;

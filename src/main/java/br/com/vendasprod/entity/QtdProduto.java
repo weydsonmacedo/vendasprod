@@ -24,7 +24,7 @@ public class QtdProduto implements AbstractEntity {
 	private static final long serialVersionUID = 2970354258099788878L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
 	private Produto produto;

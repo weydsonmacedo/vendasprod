@@ -33,19 +33,27 @@ public class ClienteServiceEJB implements ClienteService {
  */
 	@Override
 	public List<Cliente> findAll(){
-		List<Cliente> clientes = new ArrayList<Cliente>();
-		 clientes.add(new Cliente( "GLEICA", "SÃO JOSÉ DOS CAMPOS"));
-		 clientes.add(new Cliente( "THIAGO", "SEABRA"));
-		 clientes.add(new Cliente( "WEYDSON", "CAIRÚ"));
-		 clientes.add(new Cliente( "KEZIA", "LIBERTY CITY"));
-		 clientes.add(new Cliente( "JAMILE", "SALVADOR"));
-		 clientes.add(new Cliente( "MOANA", "ISLAND"));
-		 clientes.add(new Cliente( "ANNE WITH E", "LAKE OF THE SHINING WATERS"));
-		 clientes.add(new Cliente( "STAFANINI", "INEMA"));
-		 clientes.stream().forEach( c -> this.save(c) );
-		 return clientes;
+//		return inserirExemploCliente();
+		return this.dao.findAll();
 	}
 	
+	public List<Cliente> inserirExemploCliente() {
+		if (this.dao.findAll().isEmpty()) {
+			List<Cliente> clientes = new ArrayList<Cliente>();
+			clientes.add(new Cliente("GLEICA", "SÃO JOSÉ DOS CAMPOS"));
+			clientes.add(new Cliente("THIAGO", "SEABRA"));
+			clientes.add(new Cliente("WEYDSON", "CAIRÚ"));
+			clientes.add(new Cliente("KEZIA", "LIBERTY CITY"));
+			clientes.add(new Cliente("JAMILE", "SALVADOR"));
+			clientes.add(new Cliente("MOANA", "ISLAND"));
+			clientes.add(new Cliente("ANNE WITH AN E", "LAKE OF THE SHINING WATERS"));
+			clientes.add(new Cliente("STEFANINI", "INEMA"));
+			clientes.stream().forEach(c -> this.save(c));
+			return clientes;
+
+		}
+		return this.dao.findAll();
+	}
 	
 	@Override
 	public Cliente save(Cliente cliente) {

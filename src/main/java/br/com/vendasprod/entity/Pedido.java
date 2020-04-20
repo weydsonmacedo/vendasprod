@@ -27,7 +27,7 @@ public class Pedido implements AbstractEntity {
 	private static final long serialVersionUID = -8535485870828844815L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@OneToMany(mappedBy = "pedido")
