@@ -54,7 +54,7 @@ Pre-requisitos para o Funcionamento:
 		        <module name="javax.api"/>
 		        <module name="javax.transaction.api"/>
 		    </dependencies>
-	</module>
+		</module>
 
 * Nesta mesma pasta baixe o conector da internet e coloque lá. ex: *mysql-connector-java-8.0.19.jar*.
 * após todos os passos dentro do projeto na pasta: *webapp/resources/sql/*  tem um arquivo chamado *Dump.sql*.
